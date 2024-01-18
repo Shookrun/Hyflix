@@ -1,6 +1,7 @@
 import "@/app/style/globals.css"
 import Input from "@/components/Input"
 import { useCallback, useState } from "react"
+import axios from "axios"
 const Auth = ()=>{
 const [email,setEmail] = useState('');
 const [name,setName] = useState('');
@@ -10,6 +11,18 @@ const [password,setPassword] = useState('');
 
     const toggleVariant = useCallback(()=>{
         setVariant((currentVariant)=>currentVariant === 'login' ? 'register' : 'login')
+    },[])
+
+    const register = useCallback(async()=>{
+        try{
+            await axios.post('/api/register',{
+                email,
+                name,
+                password
+            });
+        } catch(error){
+            console.log(error)
+        }
     },[])
 
     return(
